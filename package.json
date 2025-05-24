@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js",
-    "watch": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js --watch"
+    "watch": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js --watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ."
   },
   "browser": {
     "tiny-secp256k1": false
@@ -26,7 +28,7 @@
   "bugs": {
     "url": "https://github.com/shayzluf/bitcoin-paperwallet-sweeper/issues"
   },
-  "homepage": "https://github.com/shayzluf/bitcoin-paperwallet-sweeper#readme",
+  "homepage": "https://shayzluf.github.io/bitcoin-paperwallet-sweeper/",
   "dependencies": {
     "bip32": "^5.0.0-rc.0",
     "bitcoinjs-lib": "^5.2.0",
@@ -35,6 +37,7 @@
   },
   "devDependencies": {
     "browserify-shim": "^3.8.15",
+    "gh-pages": "^6.3.0",
     "uglify-js": "^3.19.3"
   }
 }
