@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Paper Wallet Sweeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Bitcoin Paper Wallet Sweeper</h1>
+        
+        <form id="sweepForm">
+            <fieldset id="step1">
+                <legend>Step 1: Provide Source & Retrieve UTXOs</legend>
+                <div class="form-group">
+                    <label for="network">Network:</label>
+                    <select id="network" name="network">
+                        <option value="testnet">Testnet</option>
+                        <option value="mainnet">Mainnet</option>
+                    </select>
+                    <button type="button" id="generateTestnetBtn" class="primary-button">
+                        Generate Testnet Addresses
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="sourceAddress">Source Address Public Key:</label>
+                    <div class="input-with-scanner">
+                        <input type="text" id="sourceAddress" name="sourceAddress" required>
+                        <button type="button" id="scanSourceAddressQR" class="qr-scan-btn tertiary-button" aria-label="Scan QR code for Source Address">
+                            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M8,21H4a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H8a1,1,0,0,0,0-2Zm14-6a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H16a1,1,0,0,0,0,2h4a3,3,0,0,0,3-3V16A1,1,0,0,0,22,15ZM20,1H16a1,1,0,0,0,0,2h4a1,1,0,0,1,1,1V8a1,1,0,0,0,2,0V4A3,3,0,0,0,20,1ZM2,9A1,1,0,0,0,3,8V4A1,1,0,0,1,4,3H8A1,1,0,0,0,8,1H4A3,3,0,0,0,1,4V8A1,1,0,0,0,2,9Zm8-4H6A1,1,0,0,0,5,6v4a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V6A1,1,0,0,0,10,5ZM9,9H7V7H9Zm5,2h4a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H14a1,1,0,0,0-1,1v4A1,1,0,0,0,14,11Zm1-4h2V9H15Zm-5,6H6a1,1,0,0,0-1,1v4a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V14A1,1,0,0,0,10,13ZM9,17H7V15H9Zm5-1a1,1,0,0,0,1-1,1,1,0,0,0,0-2H14a1,1,0,0,0-1,1v1A1,1,0,0,0,14,16Zm4-3a1,1,0,0,0-1,1v3a1,1,0,0,0,0,2h1a1,1,0,0,0,1-1V14A1,1,0,0,0,18,13Zm-4,4a1,1,0,1,0,1,1A1,1,0,0,0,14,17Z"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" id="retrieveUtxoBtn" class="secondary-button">Retrieve UTXOs</button>
+            </fieldset>
+            
+            <fieldset id="step2" style="display:none;">
+                <legend>Step 2: Enter Private Key & Destination to Sweep</legend>
+                <p class="notice"><strong>Important:</strong> Ensure you are disconnected from the network before proceeding.</p>
+                <div class="form-group form-group-inline">
+                    <input type="checkbox" id="disconnectedCheckbox" name="disconnectedCheckbox">
+                    <label for="disconnectedCheckbox">I have disconnected from the network</label>
+                </div>
+                <div class="form-group">
+                    <label for="privateKey">Private Key (WIF):</label>
+                    <div class="input-with-scanner">
+                        <input type="text" id="privateKey" name="privateKey" disabled>
+                        <button type="button" id="scanPrivateKeyQR" class="qr-scan-btn tertiary-button" aria-label="Scan QR code for Private Key">
+                            <svg fill="currentColor" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M8,21H4a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H8a1,1,0,0,0,0-2Zm14-6a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H16a1,1,0,0,0,0,2h4a3,3,0,0,0,3-3V16A1,1,0,0,0,22,15ZM20,1H16a1,1,0,0,0,0,2h4a1,1,0,0,1,1,1V8a1,1,0,0,0,2,0V4A3,3,0,0,0,20,1ZM2,9A1,1,0,0,0,3,8V4A1,1,0,0,1,4,3H8A1,1,0,0,0,8,1H4A3,3,0,0,0,1,4V8A1,1,0,0,0,2,9Zm8-4H6A1,1,0,0,0,5,6v4a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V6A1,1,0,0,0,10,5ZM9,9H7V7H9Zm5,2h4a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H14a1,1,0,0,0-1,1v4A1,1,0,0,0,14,11Zm1-4h2V9H15Zm-5,6H6a1,1,0,0,0-1,1v4a1,1,0,0,0,1,1h4a1,1,0,0,0,1-1V14A1,1,0,0,0,10,13ZM9,17H7V15H9Zm5-1a1,1,0,0,0,1-1,1,1,0,0,0,0-2H14a1,1,0,0,0-1,1v1A1,1,0,0,0,14,16Zm4-3a1,1,0,0,0-1,1v3a1,1,0,0,0,0,2h1a1,1,0,0,0,1-1V14A1,1,0,0,0,18,13Zm-4,4a1,1,0,1,0,1,1A1,1,0,0,0,14,17Z"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="destinationAddress">Destination Address:</label>
+                    <input type="text" id="destinationAddress" name="destinationAddress" required>
+                </div>
+                <button type="submit" id="sweepButton" class="primary-button">Sweep Funds</button>
+                <button type="button" id="backToStep1Btn" class="secondary-button button-marginTop">
+                    ‹ Back to Step 1
+                </button>
+            </fieldset>
+        </form>
+
+        <div id="status" class="status"></div>
+        <div id="txHexContainer">
+            <!-- Content generated by app.js -->
+        </div>
+
+        <div id="txHexHelp">
+          <h3>What can I do with the raw transaction hex?</h3>
+          <ul>
+            <li><strong>Decode the transaction:</strong> You can paste the hex into a Bitcoin block explorer's decoder (like <a href='https://live.blockcypher.com/btc-testnet/decodetx/' target='_blank'>BlockCypher decoder</a> for testnet or <a href='https://live.blockcypher.com/btc/decodetx/' target='_blank'>BlockCypher decoder</a> for mainnet) to see what the transaction does before broadcasting.</li>
+            <li><strong>Broadcast the transaction:</strong> You can submit the hex manually using a block explorer's "Broadcast" or "Push TX" feature (like <a href='https://live.blockcypher.com/btc-testnet/pushtx/' target='_blank'>BlockCypher testnet</a> for testnet or <a href='https://live.blockcypher.com/btc/pushtx/' target='_blank'>BlockCypher mainnet</a> for mainnet), or via an API like BlockCypher's <a href='https://www.blockcypher.com/dev/bitcoin/#push-raw-transaction-endpoint' target='_blank'>push endpoint</a>.</li>
+            <li><strong>Security tip:</strong> Always verify the transaction details before broadcasting, especially if handling real funds.</li>
+          </ul>
+          <h4>Client-Side App</h4>
+          <p>This application runs entirely in your browser. Your private keys are never sent to any backend server. You can validate this by checking the network requests in your browser's developer tools to ensure no data is sent to any server.</p>
+          <h4>Offline Workflow</h4>
+          <p>For enhanced security, you can work offline. First, retrieve the UTXOs using the public key while online. Then, disconnect from the network, paste the private key, generate the transaction, and copy the transaction hex. Finally, close the app and use an external tool to broadcast the transaction.</p>
+        </div>
+    </div>
+
+    <!-- Testnet Address Generation Modal -->
+    <div id="testnetModal" class="modal">
+        <div class="modal-content">
+            <span id="closeTestnetModal" class="close-modal-btn">&times;</span>
+            <h2>Generate Testnet Address</h2>
+            <button id="generateNewTestnetAddress" class="primary-button">Generate New Address</button>
+            <div id="generatedTestnetAddress" class="generated-address-display"></div>
+        </div>
+    </div>
+
+    <!-- Load our browserified Bitcoin utilities -->
+    <script src="dist/bitcoin-utils.js"></script>
+    <!-- Load our app code -->
+    <script src="app.js"></script>
+    <!-- QR Code Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</body>
+</html>
+
+<!-- QR Scanner Modal -->
+<div id="qrScannerModal" class="modal">
+    <div class="modal-content qr-modal-content">
+        <h2>Scan QR Code</h2>
+        <div id="qr-reader" style="width: 100%;"></div>
+        <button type="button" id="closeQrScannerModalBtn" class="tertiary-button button-marginTop">Cancel Scan</button>
+    </div>
+</div> 

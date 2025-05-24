@@ -1,0 +1,40 @@
+{
+  "name": "bitcoin-paperwallet-sweeper",
+  "version": "1.0.0",
+  "description": "A web app to sweep funds from Bitcoin paper wallets",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js",
+    "watch": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js --watch"
+  },
+  "browser": {
+    "tiny-secp256k1": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shayzluf/bitcoin-paperwallet-sweeper"
+  },
+  "keywords": [
+    "bitcoin",
+    "paper-wallet",
+    "sweeper",
+    "cryptocurrency",
+    "wallet"
+  ],
+  "author": "Shay Zluf",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shayzluf/bitcoin-paperwallet-sweeper/issues"
+  },
+  "homepage": "https://github.com/shayzluf/bitcoin-paperwallet-sweeper#readme",
+  "dependencies": {
+    "bip32": "^5.0.0-rc.0",
+    "bitcoinjs-lib": "^5.2.0",
+    "browserify": "^17.0.0",
+    "buffer": "^6.0.3"
+  },
+  "devDependencies": {
+    "browserify-shim": "^3.8.15",
+    "uglify-js": "^3.19.3"
+  }
+}
