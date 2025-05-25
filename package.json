@@ -6,8 +6,8 @@
   "scripts": {
     "build": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js",
     "watch": "browserify ./src/utils/bitcoin-browser.js -o ./dist/bitcoin-utils.js --watch",
-    "predeploy": "npm run build && mkdir -p build && cp -r index.html styles.css app.js dist build/",
-    "deploy": "gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d . --dotfiles"
   },
   "browser": {
     "tiny-secp256k1": false
