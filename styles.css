@@ -1,0 +1,564 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Base Button Style - more neutral */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #f0f0f0; /* Default light grey */
+    color: #333; /* Default dark text */
+    border: 1px solid #ccc; /* Subtle border for default */
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500; /* Consistent font weight */
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #e0e0e0; /* Darker grey on hover */
+    border-color: #bbb;
+}
+
+button:disabled,
+button.loading { /* Apply disabled styles also when loading */
+    background-color: #bdc3c7 !important; /* Use !important to override class styles if needed */
+    color: #777 !important;
+    border-color: #bdc3c7 !important;
+    cursor: not-allowed !important;
+}
+
+/* Specific Button Classes */
+.primary-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border-color: #4CAF50; /* Match background */
+}
+
+.primary-button:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+.secondary-button {
+    background-color: #3498db; /* Blue */
+    color: white;
+    border-color: #3498db; /* Match background */
+}
+
+.secondary-button:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Alternative secondary button (e.g., for less emphasis like copy, close) */
+.tertiary-button {
+    /* background-color: #f0f0f0; Will inherit from base button if identical */
+    /* color: #333; Will inherit from base button if identical */
+    /* border: 1px solid #ccc; Will inherit from base button if identical */
+    /* Optional: if tertiary needs to be distinct beyond base, add styles here */
+}
+
+.tertiary-button:hover {
+    /* background-color: #e0e0e0; Will inherit from base button hover if identical */
+    /* border-color: #bbb; Will inherit from base button hover if identical */
+}
+
+.status {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    display: none;
+}
+
+.status.success {
+    display: block;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status.error {
+    display: block;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Loading spinner */
+.spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+button.loading {
+    position: relative;
+    color: transparent;
+}
+
+button.loading .spinner {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Transaction Review Styles */
+.transaction-review {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.transaction-review h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.tx-details {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.tx-details p {
+    margin: 8px 0;
+    color: #34495e;
+}
+
+.tx-details strong {
+    color: #2c3e50;
+    min-width: 120px;
+    display: inline-block;
+}
+
+.tx-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.manual-broadcast-info {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.manual-broadcast-info p {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.manual-broadcast-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.manual-broadcast-info li {
+    margin: 5px 0;
+}
+
+.manual-broadcast-info a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.manual-broadcast-info a:hover {
+    text-decoration: underline;
+}
+
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+legend {
+    font-weight: 600;
+    padding: 0 0.5rem;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+#txHexHelp {
+    margin-top: 2rem;
+    font-size: 0.9em;
+    color: #444;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+#txHexHelp b {
+    color: #2c3e50;
+}
+
+#txHexHelp ul {
+    margin: 0.5rem 0 0 1.25rem;
+    padding-left: 0;
+}
+
+#txHexHelp li {
+    margin-bottom: 0.5rem;
+}
+
+#txHexHelp p {
+    margin-top: 1rem;
+}
+
+/* Styles moved from inline */
+.form-group-inline input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.form-group-inline label {
+    display: inline-block;
+    margin-left: 0;
+    font-weight: normal; /* Assuming non-bold label here */
+}
+
+.button-marginTop {
+    margin-top: 10px;
+}
+
+#txHexContainer textarea#txHex {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px; /* Add some space below textarea */
+}
+
+#txHexContainer .button-group-spacing {
+    display: inline-block;
+    width: 12px;
+}
+
+#txHexContainer #broadcastLoader {
+    display: none; /* Initially hidden */
+    margin-top: 5px;
+}
+
+.notice strong {
+    color: #c0392b; /* A reddish color for emphasis */
+}
+
+/* Modal Styles - adjusted from inline */
+.modal {
+    display: none; /* Initially hidden via JS, but good default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw; /* Cover full viewport */
+    height: 100vh; /* Cover full viewport */
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+    /* display: flex; justify-content: center; align-items: center; are already there from previous modal style */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10vh auto; /* Centered with margin from top */
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; /* Max width from inline */
+    position: relative;
+    /* box-shadow: 0 2px 10px rgba(0,0,0,0.1); is already there */
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888; /* Lighter color for close X */
+}
+.close-modal-btn:hover {
+    color: #333;
+}
+
+.generated-address-display {
+    margin-top: 20px;
+    word-break: break-all;
+}
+
+/* Input with Scanner Button */
+.input-with-scanner {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between input and button */
+}
+
+.input-with-scanner input {
+    flex-grow: 1; /* Input takes available space */
+}
+
+.qr-scan-btn {
+    width: auto; /* Override default full-width button */
+    padding: 0.5rem; /* Adjust padding as needed */
+    /* font-size: 1.2rem; No longer needed for emoji sizing */
+    line-height: 1; /* Helps with vertical alignment of icon-only buttons */
+    flex-shrink: 0; /* Prevent button from shrinking */
+    display: inline-flex; /* For better alignment of SVG content */
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-scan-btn svg {
+    display: block; /* Remove extra space below SVG if it behaves like inline element */
+    /* width and height are set inline on the SVG element itself */
+}
+
+/* QR Scanner Modal Specifics */
+#qrScannerModal .modal-content {
+    max-width: 500px; /* Can be wider for scanner */
+}
+
+#qr-reader {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    background-color: #f0f0f0; /* Placeholder bg */
+}
+
+#qr-reader video {
+    width: 100% !important; /* Ensure video feed fills container */
+    height: auto !important;
+    border-radius: 3px;
+}
+
+/* Styling for html5-qrcode elements if needed (some have inline styles) */
+#qr-reader__dashboard_section_csr span {
+    margin-right: 5px;
+}
+#qr-reader__dashboard_section_csr button {
+    width: auto;
+    margin-right: 5px;
+    padding: 5px 10px;
+}
+
+/* Ensure QR Scanner Modal is hidden by default */
+#qrScannerModal {
+    display: none;
+}
+
+.testnet-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ffeeba;
+}
+
+.testnet-info p {
+    margin-bottom: 10px;
+}
+
+.testnet-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.testnet-info li {
+    margin: 5px 0;
+}
+
+.testnet-info a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.testnet-info a:hover {
+    text-decoration: underline;
+}
+
+/* Generate Testnet Button */
+#generateTestnetBtn {
+    margin-top: 10px; /* This can remain if specific spacing is needed */
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.key-pair {
+    margin: 20px 0;
+}
+
+.key-item {
+    margin-bottom: 15px;
+}
+
+.key-item label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+
+.copy-container {
+    display: flex;
+    gap: 10px;
+}
+
+.copy-container input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.copy-btn {
+    padding: 8px 12px; /* Custom padding if needed, or inherit */
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    /* background-color: #e0e0e0; */ /* From .tertiary-button */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    /* General modal action button reset - width auto, specific padding */
+    width: auto;
+    padding: 8px 16px; /* Keep modal button padding if distinct */
+}
+
+/* .modal-actions .primary-button and .secondary-button will inherit from global ones */
+/* We might not need specific overrides here if global ones are fine */
+
+/* Ensure Testnet Modal is hidden by default */
+#testnetModal {
+    display: none;
+}
+
+/* Remove the less specific .modal display:none if it was added recently to avoid confusion */
+/* The primary .modal style (around line 320) should define layout like flex, not initial visibility for specific modals */ 
